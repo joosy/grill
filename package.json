@@ -1,13 +1,13 @@
 {
   "name": "grill",
-  "description": "Grill ",
+  "description": "Grill",
   "keywords": [
     "grill",
     "mincer",
     "grunt",
     "bower"
   ],
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "author": "Boris Staal <boris@staal.io>",
   "homepage": "https://github.com/inossidabile/grill",
   "main": "./lib/grill",

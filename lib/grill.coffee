@@ -1,3 +1,5 @@
+require 'sugar'
+
 module.exports = Grill =
 
   #
@@ -12,10 +14,10 @@ module.exports = Grill =
   #
   settings:
     prefix: 'grill'
-    source: 'source'
-    destination: 'public'
     assets:
-      vendor: ['node_modules/joosy/source']
+      source: 'source'
+      destination: 'public'
+      vendor: ['vendor/*']
     server:
       port: 4000
 
@@ -24,8 +26,8 @@ module.exports = Grill =
   #
   assetter: (grunt, environment) ->
     new Grill.Assetter grunt,
-      grunt.file.expand("#{Grill.settings.source}/*").add(Grill.settings.assets.vendor),
-      Grill.settings.destination,
+      grunt.file.expand("#{Grill.settings.assets.source}/*", Grill.settings.assets.vendor...),
+      Grill.settings.assets.destination,
       Grill.config(grunt, 'config'),
       environment
 
@@ -39,7 +41,7 @@ module.exports = Grill =
   # Setup routine
   #
   setup: (grunt, settings={}) ->
-    Object.merge Grill.settings, settings
+    Object.merge Grill.settings, settings, true
 
     grunt.registerTask "#{Grill.settings.prefix}:bower", ->
       Grill.Bower.install grunt, @async()
@@ -61,7 +63,7 @@ module.exports = Grill =
 
       server = Grill.server grunt
       server.start process.env['PORT'] ? Grill.settings.server.port, (connect) ->
-        server.serveStatic connect, Grill.settings.destination, true
+        server.serveStatic connect, Grill.settings.assets.destination, true
 
     grunt.registerTask "#{Grill.settings.prefix}:compile", ->
       Grill.assetter(grunt, 'production').compile(

@@ -20,7 +20,6 @@ module.exports = class Assetter
       stylus.use require('nib')()
 
     @environment = new Mincer.Environment(process.cwd())
-    @environment.appendPath 'vendor'
     @environment.appendPath 'bower_components'
     paths.each (p) => @environment.appendPath p
 
@@ -41,4 +40,4 @@ module.exports = class Assetter
           callbacks.compiled? asset, destination
 
   server: ->
-    Mincer.createServer(@environment)
+    new Mincer.Server(@environment)

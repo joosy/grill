@@ -21,7 +21,14 @@ module.exports = class Server
       @grunt.log.ok "Proxying #{entry.src} to #{entry.dest}"
 
   serveAssets: (connect, assetter, path='/') ->
-    connect.use path, assetter.server()
+    server = assetter.server()
+    URL    = require 'url'
+    Path   = require 'path'
+
+    connect.use path, (req, res) ->
+      req.url += 'index.html' if req.url.endsWith('/')
+      server.handle req, res
+
     @grunt.log.ok "Serving assets from #{path}"
 
   serveStatic: (connect, path, compress=false) ->

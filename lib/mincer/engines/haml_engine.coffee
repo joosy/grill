@@ -14,9 +14,10 @@ module.exports = class HamlEngine extends Mincer.Template
     options = @constructor.options || {}
 
     partial = (location, locals={}) ->
-      compile(FS.readFileSync(context.environment.resolve location), locals)
+      context.dependOn location
+      compile(FS.readFileSync(context.environment.resolve location), Object.merge(locals, options))
 
-    compile = (source, locals) ->
+    compile = (source, locals={}) ->
       HAMLC.compile(source.toString())(Object.merge locals, partial: partial)
 
     compile(@data, options)
