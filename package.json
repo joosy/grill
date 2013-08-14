@@ -2,7 +2,10 @@
   "name": "grill",
   "description": "Grill ",
   "keywords": [
-    "grill", "mincer", "grunt", "bower"
+    "grill",
+    "mincer",
+    "grunt",
+    "bower"
   ],
   "version": "1.0.0-alpha.1",
   "author": "Boris Staal <boris@staal.io>",
@@ -29,5 +32,10 @@
     "gzippo": "~0.2.0",
     "stylus": "~0.32.1",
     "nib": "~0.9.1"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-coffeelint": "0.0.7",
+    "grunt-release": "~0.5.1"
   }
 }
