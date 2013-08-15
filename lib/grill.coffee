@@ -15,7 +15,7 @@ module.exports = Grill =
   settings:
     prefix: 'grill'
     assets:
-      source: 'source'
+      source: 'app'
       destination: 'public'
       vendor: ['vendor/*']
     server:
