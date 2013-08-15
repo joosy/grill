@@ -7,7 +7,7 @@
     "grunt",
     "bower"
   ],
-  "version": "1.0.0-alpha.5",
+  "version": "1.0.0-alpha.6",
   "author": "Boris Staal <boris@staal.io>",
   "homepage": "https://github.com/inossidabile/grill",
   "main": "./lib/grill",

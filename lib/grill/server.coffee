@@ -33,6 +33,17 @@ module.exports = class Server
     express
 
   #
+  # Configure underlying Express instance manually
+  #
+  # @param [Express] express           Instance of Express
+  # @param [Function] configure        Configurator
+  #
+  #
+  serveMiddlewares: (express, configure) ->
+    return unless configure
+    configure(express)
+
+  #
   # Makes server proxy using given routes map
   #
   # Routes map can be on of:
@@ -46,6 +57,8 @@ module.exports = class Server
   # @param [Array] routes             Array of routes to map
   #
   serveProxied: (express, routes) ->
+    return unless routes
+
     proxy = require 'proxy-middleware'
 
     # Normalize routes to proxy: [{src: ..., dest: ...}]

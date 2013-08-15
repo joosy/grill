@@ -54,16 +54,17 @@ module.exports = Grill =
       assetter = Grill.assetter(grunt, 'development')
       server   = Grill.server grunt
 
-      server.start Grill.settings.server.port, (connect) ->
-        server.serveProxied connect, Grill.config(grunt, 'proxy')
-        server.serveAssets connect, assetter, Grill.config(grunt, 'assets.greedy')
+      server.start Grill.settings.server.port, (express) ->
+        server.serveMiddlewares express, Grill.config(grunt, 'middlewares')
+        server.serveProxied express, Grill.config(grunt, 'proxy')
+        server.serveAssets express, assetter, Grill.config(grunt, 'assets.greedy')
 
     grunt.registerTask "#{Grill.settings.prefix}:server:production", ->
       @async()
 
       server = Grill.server grunt
-      server.start process.env['PORT'] ? Grill.settings.server.port, (connect) ->
-        server.serveStatic connect, Grill.settings.assets.destination, true
+      server.start process.env['PORT'] ? Grill.settings.server.port, (express) ->
+        server.serveStatic express, Grill.settings.assets.destination, true
 
     grunt.registerTask "#{Grill.settings.prefix}:compile", ->
       Grill.assetter(grunt, 'production').compile(
