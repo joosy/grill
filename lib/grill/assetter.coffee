@@ -1,9 +1,19 @@
 Mincer     = require 'mincer'
 Path       = require 'path'
-HamlEngine = require('../mincer/engines/haml_engine')
+HamlEngine = require '../mincer/engines/haml_engine'
 
+#
+# Wrapper around Mincer that makes proper setup and adds some useful helpers
+#
 module.exports = class Assetter
 
+  #
+  # @param [Grunt] grunt                  Instance of Grunt
+  # @param [Array] paths                  Array of load paths
+  # @param [String] destination           Compilation destination
+  # @param [Array] config                 Global static config
+  # @param [String] environment           Environment string
+  #
   constructor: (@grunt, @paths, @destination, config, environment='development') ->
     Mincer.logger.use log: (level, message) =>
       @grunt.log.writeln message
@@ -23,6 +33,18 @@ module.exports = class Assetter
     @environment.appendPath 'bower_components'
     paths.each (p) => @environment.appendPath p
 
+  #
+  # Statically compiles all the assets
+  #
+  # Compiles only given roots for CSS and JS and everything but `skips` for other
+  # content types
+  #
+  # @param [String] roots                  Glob-based pattern of files to compile for CSS and JS
+  # @param [Array] roots                   Array of patterns of files to compile for CSS and JS
+  # @param [String] skips                  Glob-based pattern of files to not compile
+  # @param [Array] skips                   Array of patterns of files to not compile
+  # @param [Array] callbacks               `error: (message) ->`, `compile: (asset, destination) ->`
+  #
   compile: (roots, skips, callbacks) ->
     @paths.each (p) =>
       for file in @grunt.file.expand({cwd: p}, '**/*') when @grunt.file.isFile(p, file)
@@ -39,5 +61,8 @@ module.exports = class Assetter
           @grunt.file.write destination, asset.toString()
           callbacks.compiled? asset, destination
 
+  #
+  # Generates instance of Mincer.Server
+  #
   server: ->
     new Mincer.Server(@environment)

@@ -1,7 +1,5 @@
 Mincer = require 'mincer'
-FS = require 'fs'
-options = {}
-
+FS     = require 'fs'
 
 module.exports = class HamlEngine extends Mincer.Template
 
@@ -10,7 +8,7 @@ module.exports = class HamlEngine extends Mincer.Template
   @configure: (@options) ->
 
   evaluate: (context) ->
-    HAMLC = require 'haml-coffee'
+    HAMLC   = require 'haml-coffee'
     options = @constructor.options || {}
 
     partial = (location, locals={}) ->

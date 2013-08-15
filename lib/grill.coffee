@@ -55,8 +55,8 @@ module.exports = Grill =
       server   = Grill.server grunt
 
       server.start Grill.settings.server.port, (connect) ->
-        server.serveProxied connect, Grill.config(grunt, 'server.proxy')
-        server.serveAssets connect, assetter
+        server.serveProxied connect, Grill.config(grunt, 'proxy')
+        server.serveAssets connect, assetter, Grill.config(grunt, 'assets.greedy')
 
     grunt.registerTask "#{Grill.settings.prefix}:server:production", ->
       @async()
@@ -67,7 +67,7 @@ module.exports = Grill =
 
     grunt.registerTask "#{Grill.settings.prefix}:compile", ->
       Grill.assetter(grunt, 'production').compile(
-        Grill.config(grunt, 'assets.roots'),
+        Grill.config(grunt, 'assets.root'),
         Grill.config(grunt, 'assets.skip') || [],
         error: (asset, msg) -> grunt.fail.fatal msg
         compiled: (asset, dest) -> grunt.log.ok "Compiled #{dest}"
