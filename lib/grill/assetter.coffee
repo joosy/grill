@@ -31,7 +31,7 @@ module.exports = class Assetter
 
     @environment = new Mincer.Environment(process.cwd())
     @environment.appendPath 'bower_components'
-    paths.each (p) => @environment.appendPath p
+    @paths.each (p) => @environment.appendPath p
 
   #
   # Statically compiles all the assets
@@ -48,17 +48,22 @@ module.exports = class Assetter
   compile: (roots, skips, callbacks) ->
     @paths.each (p) =>
       for file in @grunt.file.expand({cwd: p}, '**/*') when @grunt.file.isFile(p, file)
-        meta       = @environment.attributesFor(Path.resolve Path.join(p, file))
-        compilable = ['application/javascript', 'text/css'].any meta.contentType
-        forced     = @grunt.file.match(roots, file).length > 0
-        skip       = @grunt.file.match(skips, file).length > 0
+        pathname    = Path.resolve Path.join(p, file)
+        meta        = @environment.attributesFor(pathname)
+        compilable  = ['application/javascript', 'text/css'].any meta.contentType
+        forced      = @grunt.file.match(roots, file).length > 0
+        skip        = @grunt.file.match(skips, file).length > 0
+        destination = Path.join(@destination, meta.logicalPath)
 
         if !skip && (!compilable || forced)
-          asset = @environment.findAsset file
-          destination = Path.join(@destination, meta.logicalPath)
+          # Speed up things a bit with copying file directly if it does
+          # not require any processing
+          if meta.engines.length == 0
+            @grunt.file.copy pathname, destination
+          else
+            asset = @environment.findAsset file
+            asset.writeTo destination
 
-          callbacks.error? "Cannot find #{file}" unless asset
-          @grunt.file.write destination, asset.toString()
           callbacks.compiled? asset, destination
 
   #
