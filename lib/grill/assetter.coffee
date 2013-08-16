@@ -1,3 +1,4 @@
+Sugar      = require 'sugar'
 Mincer     = require 'mincer'
 Path       = require 'path'
 HamlEngine = require '../mincer/engines/haml_engine'

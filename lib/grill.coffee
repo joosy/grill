@@ -10,16 +10,17 @@ module.exports = Grill =
   Server: require './grill/server'
 
   #
-  # Settings
+  # Suite-level settings that can be used to use grill as
+  # building platform for other frameworks or toolbelts
   #
   settings:
-    prefix: 'grill'
+    prefix: 'grill'                 # prefixes all grunt tasks fith this
     assets:
-      source: 'app'
-      destination: 'public'
-      vendor: ['vendor/*']
+      source: 'app'                 # directory containing application files
+      destination: 'public'         # directory containing static build output
+      vendor: ['vendor/*']          # additional paths to grab assets from
     server:
-      port: 4000
+      port: 4000                    # local server port
 
   #
   # Factories
@@ -66,13 +67,18 @@ module.exports = Grill =
       server.start process.env['PORT'] ? Grill.settings.server.port, (express) ->
         server.serveStatic express, Grill.settings.assets.destination, true
 
-    grunt.registerTask "#{Grill.settings.prefix}:compile", ->
+    grunt.registerTask "#{Grill.settings.prefix}:compile", ["#{Grill.settings.prefix}:compile:development"]
+
+    grunt.registerTask "#{Grill.settings.prefix}:compile:development", ->
       Grill.assetter(grunt, 'production').compile(
         Grill.config(grunt, 'assets.root'),
         Grill.config(grunt, 'assets.skip') || [],
         error: (asset, msg) -> grunt.fail.fatal msg
         compiled: (asset, dest) -> grunt.log.ok "Compiled #{dest}"
       )
+
+    grunt.registerTask "#{Grill.settings.prefix}:compile:production", ->
+      grunt.task.run("#{Grill.settings.prefix}:compile:development") if process.env['NODE_ENV'] == 'production'
 
     grunt.registerTask "#{Grill.settings.prefix}:clean", ->
       grunt.file.delete 'public' if grunt.file.exists('public')

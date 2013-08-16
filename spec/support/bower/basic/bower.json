@@ -1,0 +1,6 @@
+{
+  "name": "grill",
+  "dependencies": {
+    "jquery": "latest"
+  }
+}

@@ -1,7 +1,8 @@
-URL = require 'url'
+Sugar = require 'sugar'
+URL   = require 'url'
 
 #
-# Express-base server for:
+# Express-based server for:
 #   * Mincer assets coming from {Assetter}
 #   * Proxy maps
 #   * Static files (with compression support)
@@ -27,10 +28,10 @@ module.exports = class Server
   start: (port, setup) ->
     express = require('express')()
     setup? express
-    express.listen port
+    server = express.listen port
     @grunt.log.ok "Started on #{port}"
 
-    express
+    server
 
   #
   # Configure underlying Express instance manually
