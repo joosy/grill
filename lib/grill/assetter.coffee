@@ -62,7 +62,7 @@ module.exports = class Assetter
             @grunt.file.copy pathname, destination
           else
             asset = @environment.findAsset file
-            asset.writeTo destination
+            @grunt.file.write destination, asset.buffer
 
           callbacks.compiled? asset, destination
 
