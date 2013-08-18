@@ -1,6 +1,7 @@
 Sugar      = require 'sugar'
 Mincer     = require 'mincer'
 Path       = require 'path'
+FS         = require 'fs'
 HamlEngine = require '../mincer/engines/haml_engine'
 
 #
@@ -57,13 +58,10 @@ module.exports = class Assetter
         destination = Path.join(@destination, meta.logicalPath)
 
         if !skip && (!compilable || forced)
-          # Speed up things a bit with copying file directly if it does
-          # not require any processing
-          if meta.engines.length == 0
-            @grunt.file.copy pathname, destination
-          else
-            asset = @environment.findAsset file
-            @grunt.file.write destination, asset.buffer
+          asset = @environment.findAsset file
+
+          @grunt.file.mkdir Path.dirname(destination)
+          FS.writeFileSync destination, asset.buffer
 
           callbacks.compiled? asset, destination
 
