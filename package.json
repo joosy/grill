@@ -7,7 +7,7 @@
     "grunt",
     "bower"
   ],
-  "version": "1.0.0-alpha.9",
+  "version": "1.0.0-alpha.10",
   "author": "Boris Staal <boris@staal.io>",
   "homepage": "https://github.com/inossidabile/grill",
   "main": "./lib/grill",
@@ -27,7 +27,11 @@
     "mincer": ">= 0.5.5",
     "express": "~3.3.5",
     "proxy-middleware": "~0.4.0",
-    "gzippo": "~0.2.0"
+    "gzippo": "~0.2.0",
+    "grunt-contrib-testem": ">=0.2.0",
+    "haml-coffee": "~1.11.1",
+    "stylus": "~0.32.1",
+    "nib": "~0.9.1"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -36,9 +40,6 @@
     "chai": "~1.7.2",
     "mocha": "~1.12.0",
     "grunt-mocha-test": "~0.6.3",
-    "sinon": "~1.7.3",
-    "stylus": "~0.36.1",
-    "haml-coffee": "~1.11.4",
-    "nib": "~1.0.0"
+    "sinon": "~1.7.3"
   }
 }
