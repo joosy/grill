@@ -9,11 +9,11 @@
   ],
   "version": "1.0.0-alpha.13",
   "author": "Boris Staal <boris@staal.io>",
-  "homepage": "https://github.com/inossidabile/grill",
+  "homepage": "https://github.com/joosy/grill",
   "main": "./lib/grill",
   "repository": {
     "type": "git",
-    "url": "git://github.com/inossidabile/grill.git"
+    "url": "git://github.com/joosy/grill.git"
   },
   "scripts": {
     "test": "grunt mochaTest"
