@@ -66,7 +66,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     grill: {
-      asset: {
+      assets: {
         root: [ 'application.*' ]
       }
     }
