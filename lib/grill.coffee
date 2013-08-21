@@ -26,8 +26,13 @@ module.exports = Grill =
   # Factories
   #
   assetter: (grunt, environment) ->
+    paths = Grill.settings.assets.vendor
+      .include("#{Grill.settings.assets.source}/*")
+      .include(Grill.config grunt, 'assets.paths')
+      .compact()
+
     new Grill.Assetter grunt,
-      grunt.file.expand("#{Grill.settings.assets.source}/*", Grill.settings.assets.vendor...),
+      grunt.file.expand(paths),
       Grill.settings.assets.destination,
       Grill.config(grunt, 'config'),
       environment
