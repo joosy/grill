@@ -164,9 +164,17 @@ grill: {
 }
 ```
 
-##### Use partials at HAML
+##### Use partials and layouts at HAML
 
-You can't make a web-site without partials. That's it. Grill bundles `@render 'path/to/asset'` into `.haml` kind of assets so you can use it keep your layout DRY. And in the end you might want to exclude that partials from compilation by using `skip: ['_partials/**/*']` at assets configuration section.
+You can't make a web-site without partials. That's it. Grill bundles `!= @partial 'path/to/asset'` into `.haml` kind of assets so you can use it keep your layout DRY. Also you can use the following syntax to wrap part of your page into a layout:
+
+```haml
+!= @layout 'path/to/layout.haml', {foo: 'bar'}, =>
+  #page
+    .goes Here
+```
+
+And in the end you might want to exclude that partials and layouts from compilation by using `skip: ['_partials/**/*']` at assets configuration section.
 
 ##### Use HTML5 routing
 
