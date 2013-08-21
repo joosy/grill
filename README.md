@@ -151,6 +151,18 @@ Cleans up `public`
 
 ### Options and features
 
+#### Global config and environment
+
+You can pass global data to those kind of assets that can handle it (currently HAML and Stylus).
+
+```javascript
+grill: {
+  config: require('./config.json')
+}
+```
+
+When used like that it globally defines `@config` variable within your assets. Additionaly Grill globally sets `@environment` variable. It's equal to 'development' when running from development server and 'production' during static build.
+
 #### Assets configurations
 
 ```javascript
@@ -166,7 +178,13 @@ grill: {
 
 ##### Use partials and layouts at HAML
 
-You can't make a web-site without partials. That's it. Grill bundles `!= @partial 'path/to/asset'` into `.haml` kind of assets so you can use it keep your layout DRY. Also you can use the following syntax to wrap part of your page into a layout:
+You can't make a web-site without partials. That's why Grill bundles this...
+
+```haml
+!= @partial 'path/to/asset', {foo: 'bar'}
+```
+
+...into `.haml` kind of assets so you can use it keep your layout DRY. Also you can use the following syntax to wrap part of your page into a layout:
 
 ```haml
 != @layout 'path/to/layout.haml', {foo: 'bar'}, =>

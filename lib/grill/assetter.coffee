@@ -58,10 +58,13 @@ module.exports = class Assetter
         destination = Path.join(@destination, meta.logicalPath)
 
         if !skip && (!compilable || forced)
-          asset = @environment.findAsset file
+          if Path.extname(file).length == 0
+            @grunt.file.copy pathname, destination
+          else
+            asset = @environment.findAsset file
 
-          @grunt.file.mkdir Path.dirname(destination)
-          FS.writeFileSync destination, asset.buffer
+            @grunt.file.mkdir Path.dirname(destination)
+            FS.writeFileSync destination, asset.buffer
 
           callbacks.compiled? asset, destination
 
