@@ -238,6 +238,8 @@ Using this you can easily organize any kind of stubs.
 
 ### More examples
 
+We use Grill to build [Joosy website](https://github.com/joosy/website) and [Guides](https://github.com/joosy/guides).
+
 If you want to see Grill in action without all the hackery, you can give **Joosy** a try. Go to the [guides section](http://guides.joosy.ws) and follow the **standalone mode** branch.
 
 ## Maintainers
