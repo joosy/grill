@@ -36,6 +36,10 @@
     "commander": "~1.2.0"
   },
   "devDependencies": {
+    "haml-coffee": "~1.11.4",
+    "stylus": "~0.37.0",
+    "nib": "~1.0.0",
+
     "grunt": "~0.4.1",
     "grunt-coffeelint": "0.0.7",
     "grunt-release": "~0.5.1",
