@@ -44,6 +44,10 @@ module.exports = Grill =
   setup: (grunt, settings={}) ->
     Object.merge Grill.settings, settings, true
 
+    grunt[Grill.settings.prefix] =
+      assetter: (environment) => @assetter grunt, environment
+      server: => @server grunt
+
     grunt.registerTask "#{Grill.settings.prefix}:bower", ->
       Grill.Bower.install grunt, @async()
 
