@@ -52,7 +52,7 @@ module.exports = class Assetter
       for file in @grunt.file.expand({cwd: p}, '**/*') when @grunt.file.isFile(p, file)
         pathname    = Path.resolve Path.join(p, file)
         meta        = @environment.attributesFor(pathname)
-        compilable  = ['application/javascript', 'text/css'].any meta.contentType
+        compilable  = meta.contentType == 'application/javascript' || meta.contentType == 'text/css'
         forced      = @grunt.file.match(roots, file).length > 0
         skip        = @grunt.file.match(skips, file).length > 0
         destination = Path.join(@destination, meta.logicalPath)
