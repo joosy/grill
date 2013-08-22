@@ -23,7 +23,7 @@ And it has shortcuts for everything-else-based-on-Grunt. I.e. for tests we recom
 
 <a href="http://joosy.ws"><img src="http://f.cl.ly/items/3X0f2K1z3r1X3K162W2c/logo.png" align="right" /></a>
 
-Grill was developed as a building environment for **[Joosy](http://joosy.ws) Framework** standalone mode. We wanted to have an ability to share the dependency system between the framework core and project utilizing it. But you can use it for any framework and any project since **Mincer** approach is really the flexible and the powerful one.
+Grill was developed as a building environment for **[Joosy](http://joosy.ws) Framework** standalone mode. We wanted to have an ability to share the dependency system between the framework core and project utilizing it. As the result we ended up using Grill to compile even **Joosy** itself. But you can use it for any framework and any project since **Mincer** approach is really the flexible and the powerful one.
 
 ## Why Grill?
 
@@ -238,7 +238,7 @@ Using this you can easily organize any kind of stubs.
 
 ### More examples
 
-We use Grill to build [Joosy website](https://github.com/joosy/website) and [Guides](https://github.com/joosy/guides).
+We use Grill to build [website of Joosy](https://github.com/joosy/website), [its Guides](https://github.com/joosy/guides) and even [Joosy](https://github.com/joosy/joosy) itself.
 
 If you want to see Grill in action without all the hackery, you can give **Joosy** a try. Go to the [guides section](http://guides.joosy.ws) and follow the **standalone mode** branch.
 
