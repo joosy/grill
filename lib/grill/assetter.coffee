@@ -49,19 +49,26 @@ module.exports = class Assetter
   #
   compile: (roots, skips, callbacks) ->
     @paths.each (p) =>
-      for file in @grunt.file.expand({cwd: p}, '**/*') when @grunt.file.isFile(p, file)
+      for file in @grunt.file.expand({cwd: p}, '**/*')
+        forced      = @grunt.file.match(roots, file).length > 0
+        directory   = @grunt.file.isDir(p, file)
         pathname    = Path.resolve Path.join(p, file)
         meta        = @environment.attributesFor(pathname)
         compilable  = meta.contentType == 'application/javascript' || meta.contentType == 'text/css'
-        forced      = @grunt.file.match(roots, file).length > 0
         skip        = @grunt.file.match(skips, file).length > 0
         destination = Path.join(@destination, meta.logicalPath)
+
+        if directory
+          continue unless forced
+          asset       = @environment.findAsset(file)
+          file        = asset.pathname
+          destination = Path.join(@destination, asset.logicalPath)
 
         if !skip && (!compilable || forced)
           if Path.extname(file).length == 0
             @grunt.file.copy pathname, destination
           else
-            asset = @environment.findAsset file
+            asset ||= @environment.findAsset file
 
             @grunt.file.mkdir Path.dirname(destination)
             FS.writeFileSync destination, asset.buffer

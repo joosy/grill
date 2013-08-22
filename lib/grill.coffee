@@ -16,11 +16,10 @@ module.exports = Grill =
   settings:
     prefix: 'grill'                 # prefixes all grunt tasks fith this
     assets:
-      source: 'app'                 # directory containing application files
+      vendor: ['app/*', 'vendor/*'] # vendor paths to grab assets from
       destination: 'public'         # directory containing static build output
-      vendor: ['vendor/*']          # additional paths to grab assets from
     server:
-      port: 4000                    # local server port
+      port: 4000                    # default local server port
 
   #
   # Factories
@@ -28,13 +27,12 @@ module.exports = Grill =
   assetter: (grunt, environment) ->
     paths = Array.create(
       Grill.settings.assets.vendor,
-      "#{Grill.settings.assets.source}/*",
       Grill.config(grunt, 'assets.paths')
     ).compact()
 
     new Grill.Assetter grunt,
       grunt.file.expand(paths),
-      Grill.settings.assets.destination,
+      Grill.config(grunt, 'assets.destination') ? Grill.settings.assets.destination,
       Grill.config(grunt, 'config'),
       environment
 
@@ -64,8 +62,9 @@ module.exports = Grill =
 
       assetter = Grill.assetter(grunt, 'development')
       server   = Grill.server grunt
+      port     = Grill.config(grunt, 'server.port') ? Grill.settings.server.port
 
-      server.start Grill.settings.server.port, (express) ->
+      server.start port, (express) ->
         server.serveMiddlewares express, Grill.config(grunt, 'middlewares')
         server.serveProxied express, Grill.config(grunt, 'proxy')
         server.serveAssets express, assetter, Grill.config(grunt, 'assets.greedy')
@@ -74,8 +73,10 @@ module.exports = Grill =
       @async()
 
       server = Grill.server grunt
-      server.start process.env['PORT'] ? Grill.settings.server.port, (express) ->
-        server.serveStatic express, Grill.settings.assets.destination, true
+      port   = process.env['PORT'] ? (Grill.config(grunt, 'server.port') ? Grill.settings.server.port)
+
+      server.start port, (express) ->
+        server.serveStatic express, Grill.config(grunt, 'assets.destination') ? Grill.settings.assets.destination, true
 
     grunt.registerTask "#{Grill.settings.prefix}:compile", ["#{Grill.settings.prefix}:compile:development"]
 
