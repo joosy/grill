@@ -49,7 +49,7 @@ module.exports = class Assetter
   #
   compile: (roots, skips, callbacks) ->
     @paths.each (p) =>
-      for file in @grunt.file.expand({cwd: p}, '**/*')
+      @grunt.file.expand({cwd: p}, '**/*').forEach (file) =>
         forced      = @grunt.file.match(roots, file).length > 0
         directory   = @grunt.file.isDir(p, file)
         pathname    = Path.resolve Path.join(p, file)
@@ -59,7 +59,7 @@ module.exports = class Assetter
         destination = Path.join(@destination, meta.logicalPath)
 
         if directory
-          continue unless forced
+          return unless forced
           asset       = @environment.findAsset(file)
           file        = asset.pathname
           destination = Path.join(@destination, asset.logicalPath)

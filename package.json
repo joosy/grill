@@ -7,7 +7,7 @@
     "grunt",
     "bower"
   ],
-  "version": "1.0.0-alpha.15",
+  "version": "1.0.0-alpha.16",
   "author": "Boris Staal <boris@staal.io>",
   "homepage": "https://github.com/joosy/grill",
   "main": "./lib/grill",
