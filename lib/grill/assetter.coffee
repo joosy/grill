@@ -50,7 +50,6 @@ module.exports = class Assetter
   #
   compile: (roots, skips, callbacks) ->
     @paths.each (p) =>
-      console.log p
       @grunt.file.expand({cwd: p}, '**/*').forEach (file) =>
         forced      = @grunt.file.match(roots, file).length > 0
         directory   = @grunt.file.isDir(p, file)
