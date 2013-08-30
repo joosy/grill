@@ -32,7 +32,8 @@ module.exports = class Assetter
       stylus.use require('nib')()
 
     @environment = new Mincer.Environment(process.cwd())
-    @environment.appendPath 'bower_components'
+
+    @paths.add 'bower_components'
     @paths.each (p) => @environment.appendPath p
 
   #
@@ -49,12 +50,14 @@ module.exports = class Assetter
   #
   compile: (roots, skips, callbacks) ->
     @paths.each (p) =>
+      console.log p
       @grunt.file.expand({cwd: p}, '**/*').forEach (file) =>
         forced      = @grunt.file.match(roots, file).length > 0
         directory   = @grunt.file.isDir(p, file)
         pathname    = Path.resolve Path.join(p, file)
         meta        = @environment.attributesFor(pathname)
         compilable  = meta.contentType == 'application/javascript' || meta.contentType == 'text/css'
+        compilable  = true if p == 'bower_components'
         skip        = @grunt.file.match(skips, file).length > 0
         destination = Path.join(@destination, meta.logicalPath)
 
