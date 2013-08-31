@@ -26,7 +26,9 @@ module.exports = Grill =
     paths = grunt.util._([
       Grill.settings.assets.vendor,
       Grill.config(grunt, 'assets.paths')
-    ]).flatten().compact()
+    ]).flatten()
+
+    paths = grunt.util._(paths).compact()
 
     new Grill.Assetter grunt,
       grunt.file.expand(paths),
@@ -44,7 +46,7 @@ module.exports = Grill =
   # Setup routine
   #
   setup: (grunt, settings={}) ->
-    Object.merge Grill.settings, settings, true
+    Grill.settings[key] = value for key, value of settings
 
     grunt[Grill.settings.prefix] =
       assetter: (environment) => @assetter grunt, environment

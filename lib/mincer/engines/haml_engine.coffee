@@ -13,7 +13,7 @@ module.exports = class HamlEngine extends Mincer.Template
     options = @constructor.options || {}
 
     layout = (location, locals={}, content) ->
-      if Object.isFunction(locals)
+      if typeof locals == "function"
         content = locals
         locals  = {}
       locals.content = content()
