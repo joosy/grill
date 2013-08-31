@@ -26,11 +26,15 @@ module.exports = class HamlEngine extends Mincer.Template
       context.dependOn location
 
       if Path.extname(location) == '.haml'
-        compile FS.readFileSync(context.environment.resolve location), Object.merge(locals, options)
+        locals[key] = value for key, value of options
+        compile FS.readFileSync(context.environment.resolve location), locals
       else
         context.environment.findAsset(location).toString()
 
     compile = (source, locals={}) ->
-      HAMLC.compile(source.toString())(Object.merge locals, partial: partial, layout: layout)
+      locals.partial = partial
+      locals.layout  = layout
+
+      HAMLC.compile(source.toString())(locals)
 
     compile(@data, options)

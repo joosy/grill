@@ -1,5 +1,3 @@
-require 'sugar'
-
 #
 # Tiny wrapper around Bower allowing Grunt-compatible automated usage
 #
@@ -44,11 +42,11 @@ module.exports = class Bower
   @resolve: (grunt, complete, error) ->
     grunt.log.subhead "Bower conflict for '#{error.name}'"
 
-    error.picks.each (p) ->
+    error.picks.forEach (p) ->
       dependencies = p.dependants.map((x) -> x.endpoint.name).join(',')
       grunt.log.warn "#{p.endpoint.target} (#{dependencies.yellow}: resolves to #{p.pkgMeta._release.yellow})"
 
-    resolutions = error.picks.map((x) -> x.pkgMeta._release).unique()
+    resolutions = grunt.util._(error.picks.map((x) -> x.pkgMeta._release)).unique()
 
     unless process.env['NODE_ENV'] == 'production'
       grunt.log.subhead "Pick a resolution from the list:"
@@ -63,5 +61,5 @@ module.exports = class Bower
         @install grunt, complete
     else
       grunt.log.subhead "Possible resolutions:"
-      resolutions.unique().each (r) -> grunt.log.warn r
+      resolutions.unique().forEach (r) -> grunt.log.warn r
       grunt.fatal "Bower has errored"

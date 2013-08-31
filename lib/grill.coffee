@@ -1,5 +1,3 @@
-require 'sugar'
-
 module.exports = Grill =
 
   #
@@ -25,10 +23,10 @@ module.exports = Grill =
   # Factories
   #
   assetter: (grunt, environment) ->
-    paths = Array.create(
+    paths = grunt.util._([
       Grill.settings.assets.vendor,
       Grill.config(grunt, 'assets.paths')
-    ).compact()
+    ]).flatten().compact()
 
     new Grill.Assetter grunt,
       grunt.file.expand(paths),

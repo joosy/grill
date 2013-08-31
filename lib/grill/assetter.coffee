@@ -1,4 +1,3 @@
-Sugar      = require 'sugar'
 Mincer     = require 'mincer'
 Path       = require 'path'
 FS         = require 'fs'
@@ -33,8 +32,8 @@ module.exports = class Assetter
 
     @environment = new Mincer.Environment(process.cwd())
 
-    @paths.add 'bower_components'
-    @paths.each (p) => @environment.appendPath p
+    @paths.push 'bower_components'
+    @paths.forEach (p) => @environment.appendPath p
 
   #
   # Statically compiles all the assets
@@ -49,7 +48,7 @@ module.exports = class Assetter
   # @param [Array] callbacks               `error: (message) ->`, `compile: (asset, destination) ->`
   #
   compile: (roots, skips, callbacks) ->
-    @paths.each (p) =>
+    @paths.forEach (p) =>
       @grunt.file.expand({cwd: p}, '**/*').forEach (file) =>
         forced      = @grunt.file.match(roots, file).length > 0
         directory   = @grunt.file.isDir(p, file)

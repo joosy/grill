@@ -7,7 +7,7 @@
     "grunt",
     "bower"
   ],
-  "version": "1.0.0-alpha.17",
+  "version": "1.0.0-alpha.18",
   "author": "Boris Staal <boris@staal.io>",
   "homepage": "https://github.com/joosy/grill",
   "main": "./lib/grill",
@@ -23,8 +23,6 @@
   },
   "dependencies": {
     "coffee-script": "~1.6.3",
-    "sugar": "~1.3.8",
-
     "bower": "~1.2.1",
     "mincer": ">= 0.5.5",
     "express": "~3.3.5",

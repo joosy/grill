@@ -1,5 +1,4 @@
-Sugar = require 'sugar'
-URL   = require 'url'
+URL = require 'url'
 
 #
 # Express-based server for:
@@ -63,11 +62,11 @@ module.exports = class Server
     proxy = require 'proxy-middleware'
 
     # Normalize routes to proxy: [{src: ..., dest: ...}]
-    if Object.isObject routes
+    if @grunt.util._.isObject routes
       keys = Object.keys(routes)
 
       # proxy: {src: ..., dest: ...}
-      if keys.exclude('src', 'dest').length == 0
+      if @grunt.util._(keys).without('src', 'dest').length == 0
         routes = [routes]
 
       # proxy: {src: 'dest'}
@@ -80,7 +79,7 @@ module.exports = class Server
 
   # @private
   normalizeUrl: (req) ->
-    req.url += 'index.html' if req.url.endsWith('/')
+    req.url += 'index.html' if req.url.indexOf('/', req.url.length - 1) != -1
     URL.parse(req.url).pathname.replace(/^\//, '')
 
   #
@@ -101,7 +100,7 @@ module.exports = class Server
   serveAssets: (express, assetter, greedy=[], path='/') ->
     server = assetter.server()
     Path   = require 'path'
-    greedy = [greedy] unless Object.isArray(greedy)
+    greedy = [greedy] unless @grunt.util._.isArray(greedy)
 
     express.use path, (req, res, next) =>
       pathname = @normalizeUrl(req)
