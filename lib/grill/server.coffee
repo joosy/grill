@@ -62,7 +62,7 @@ module.exports = class Server
     proxy = require 'proxy-middleware'
 
     # Normalize routes to proxy: [{src: ..., dest: ...}]
-    if @grunt.util._.isObject routes
+    if @grunt.util._.isPlainObject routes
       keys = Object.keys(routes)
 
       # proxy: {src: ..., dest: ...}
