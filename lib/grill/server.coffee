@@ -79,8 +79,10 @@ module.exports = class Server
 
   # @private
   normalizeUrl: (req) ->
-    req.url += 'index.html' if req.url.indexOf('/', req.url.length - 1) != -1
-    URL.parse(req.url).pathname.replace(/^\//, '')
+    url = URL.parse(req.url)
+    url.pathname += 'index.html' if url.pathname.indexOf('/', url.pathname.length - 1) != -1
+    req.url = URL.format(url)
+    url.pathname.replace(/^\//, '')
 
   #
   # Makes server dispense dynamically-compiled assets from given {Assetter}
