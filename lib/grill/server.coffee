@@ -112,9 +112,9 @@ module.exports = class Server
       catch error
         for attempt in greedy
           # Greedy urls should always start with slash
-          attempt = '/'+attempt unless attempt.startsWith('/')
+          attempt = '/'+attempt unless attempt[0] == '/'
 
-          if req.url.startsWith attempt
+          if req.url.indexOf(attempt) == 0
             req.url = attempt
             @normalizeUrl(req)
             break
