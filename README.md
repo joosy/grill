@@ -252,3 +252,7 @@ If you want to see Grill in action without all the hackery, you can give **Joosy
 Copyright 2013 [Boris Staal](http://staal.io)
 
 It is free software, and may be redistributed under the terms of MIT license.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/joosy/grill/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
