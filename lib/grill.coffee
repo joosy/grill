@@ -18,6 +18,7 @@ module.exports = Grill =
       destination: 'public'         # directory containing static build output
     server:
       port: 4000                    # default local server port
+      testPort: 4001                # default test server port
 
   #
   # Factories
@@ -59,7 +60,7 @@ module.exports = Grill =
     grunt.registerTask "#{Grill.settings.prefix}:server", ["#{Grill.settings.prefix}:server:development"]
 
     grunt.registerTask "#{Grill.settings.prefix}:server:development", ->
-      @async()
+      @async
 
       assetter = Grill.assetter(grunt, 'development')
       server   = Grill.server grunt
@@ -68,6 +69,14 @@ module.exports = Grill =
       server.start port, (express) ->
         server.serveMiddlewares express, Grill.config(grunt, 'middlewares')
         server.serveProxied express, Grill.config(grunt, 'proxy')
+        server.serveAssets express, assetter, Grill.config(grunt, 'assets.greedy')
+
+    grunt.registerTask "#{Grill.settings.prefix}:server:test", ->
+      assetter = Grill.assetter(grunt, 'test')
+      server   = Grill.server grunt
+      port     = Grill.config(grunt, 'server.testPort') ? Grill.settings.server.testPort
+
+      server.start port, (express) ->
         server.serveAssets express, assetter, Grill.config(grunt, 'assets.greedy')
 
     grunt.registerTask "#{Grill.settings.prefix}:server:production", ->
