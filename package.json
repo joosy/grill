@@ -7,7 +7,7 @@
     "grunt",
     "bower"
   ],
-  "version": "1.0.0-alpha.22",
+  "version": "1.0.0-rc.1",
   "author": "Boris Staal <boris@staal.io>",
   "homepage": "https://github.com/joosy/grill",
   "main": "./lib/grill",
@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "haml-coffee": "~1.11.4",
-    "stylus": "~0.38.0",
+    "stylus": "~0.47.1",
     "nib": "~1.0.0",
 
     "grunt": "~0.4.1",

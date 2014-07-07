@@ -15,13 +15,15 @@ module.exports = class Assetter
   # @param [Array] config                 Global static config
   # @param [String] environment           Environment string
   #
-  constructor: (@grunt, @paths, @destination, config, environment='development') ->
+  constructor: (@grunt, @paths, @destination, config, configurator, environment='development') ->
     Mincer.logger.use log: (level, message) =>
       @grunt.log.writeln message
 
-    Mincer.registerEngine '.haml', HamlEngine
 
-    HamlEngine.configure config: config, environment: environment
+    Mincer.HamlEngine = HamlEngine
+    Mincer.registerEngine '.haml', Mincer.HamlEngine
+
+    Mincer.HamlEngine.configure config: config, environment: environment
 
     Mincer.CoffeeEngine.configure bare: false
 
@@ -29,6 +31,8 @@ module.exports = class Assetter
       stylus.define '$environment', environment
       stylus.define '$config', config
       stylus.use require('nib')()
+
+    configurator?(Mincer)
 
     @environment = new Mincer.Environment(process.cwd())
 

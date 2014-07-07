@@ -34,6 +34,7 @@ module.exports = Grill =
       grunt.file.expand(paths),
       Grill.config(grunt, 'assets.destination') ? Grill.settings.assets.destination,
       Grill.config(grunt, 'config'),
+      Grill.config(grunt, 'mincer'),
       environment
 
   server: (grunt) ->
