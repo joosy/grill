@@ -23,7 +23,7 @@ describe 'Grill.Bower', ->
 
       Bower.install grunt, ->
         grunt.file.exists('bower_components').should.equal true
-        grunt.file.exists('bower_components/jquery/jquery.js').should.equal true
+        grunt.file.exists('bower_components/jquery').should.equal true
         done()
 
   describe 'conflict', ->

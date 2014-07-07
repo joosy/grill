@@ -37,6 +37,8 @@ describe 'Grill.Server', ->
       done()
 
   it "proxies", (done) ->
+    @timeout 30000
+
     @listener = @server.start 6666, (express) =>
       @server.serveProxied express, {'/': 'http://www.example.com'}
 
@@ -50,7 +52,7 @@ describe 'Grill.Server', ->
       @server.serveAssets express, assetter
 
     @request '/application.js', (response) ->
-      response.should.equal '(function() {\n  (function() {});\n\n}).call(this);\n'
+      response.should.equal '(function() {\n  (function() {});\n\n}).call(this);'
       done()
 
   it "serves public", (done) ->

@@ -14,11 +14,11 @@ describe 'Grill.Assetter', ->
   beforeEach ->
     paths = grunt.file.expand('assetter/app/*').concat(grunt.file.expand 'assetter/vendor/*')
 
-    @assetter = new Assetter grunt, paths, @destination, 'config', 'environment'
+    @assetter = new Assetter grunt, paths, @destination, 'config', undefined, 'environment'
     @mincer   = @assetter.environment
 
   it 'serves', ->
-    @mincer.findAsset('application.js').source.should.equal '(function() {\n  (function() {});\n\n}).call(this);\n'
+    @mincer.findAsset('application.js').source.should.equal '(function() {\n  (function() {});\n\n}).call(this);'
     @mincer.findAsset('application.css').source.should.equal 'body {\n  background: linear-gradient(top, #fff, #000);\n}\n'
     @mincer.findAsset('image.png').buffer.length.should.equal 81178
     @mincer.findAsset('index.html').source.should.equal "<div class='config'>config</div>\n<div class='environment'>environment</div>\n<div class='partial'><div class='config'>config</div>\n<div class='environment'>environment</div></div>"
@@ -33,7 +33,7 @@ describe 'Grill.Assetter', ->
       'application.css', 'application.js', 'image.png', 'index.html'
     ]
 
-    grunt.file.read('assetter/public/application.js').should.equal '(function() {\n  (function() {});\n\n}).call(this);\n'
+    grunt.file.read('assetter/public/application.js').should.equal '(function() {\n  (function() {});\n\n}).call(this);'
     grunt.file.read('assetter/public/application.css').should.equal 'body {\n  background: linear-gradient(top, #fff, #000);\n}\n'
     grunt.file.read('assetter/public/image.png').length.should.equal 78314
     grunt.file.read('assetter/public/index.html').should.equal "<div class='config'>config</div>\n<div class='environment'>environment</div>\n<div class='partial'><div class='config'>config</div>\n<div class='environment'>environment</div></div>"
