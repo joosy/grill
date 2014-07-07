@@ -1,7 +1,9 @@
-Mincer     = require 'mincer'
-Path       = require 'path'
-FS         = require 'fs'
-HamlEngine = require '../mincer/engines/haml_engine'
+Mincer = require 'mincer'
+Path   = require 'path'
+FS     = require 'fs'
+
+Mincer.HamlEngine       = require '../mincer/engines/haml_engine'
+Mincer.HamlCoffeeEngine = require '../mincer/engines/haml_coffee_engine'
 
 #
 # Wrapper around Mincer that makes proper setup and adds some useful helpers
@@ -19,9 +21,8 @@ module.exports = class Assetter
     Mincer.logger.use log: (level, message) =>
       @grunt.log.writeln message
 
-
-    Mincer.HamlEngine = HamlEngine
     Mincer.registerEngine '.haml', Mincer.HamlEngine
+    Mincer.registerEngine '.hamlc', Mincer.HamlCoffeeEngine
 
     Mincer.HamlEngine.configure config: config, environment: environment
 
