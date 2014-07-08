@@ -60,7 +60,7 @@ module.exports = Grill =
     grunt.registerTask "#{Grill.settings.prefix}:server", ["#{Grill.settings.prefix}:server:development"]
 
     grunt.registerTask "#{Grill.settings.prefix}:server:development", ->
-      @async
+      @async()
 
       assetter = Grill.assetter(grunt, 'development')
       server   = Grill.server grunt
